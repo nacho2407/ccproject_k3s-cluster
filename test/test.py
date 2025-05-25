@@ -18,7 +18,7 @@ async def hello(request: Request):
         <body style="font-family:sans-serif; text-align:center; padding-top:3em;">
             <h1>👋 Hello, world!</h1>
 
-            <p>🐳 Served from pod: <strong>{hostname}</strong></p>
+            <p>🐳 Served from node: <strong>{hostname}</strong></p>
 
             <p>📊 Visitor number: <strong>{count}</strong></p>
             
