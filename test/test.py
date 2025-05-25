@@ -21,8 +21,6 @@ async def hello(request: Request):
             <p>🐳 Served from node: <strong>{hostname}</strong></p>
 
             <p>📊 Visitor number: <strong>{count}</strong></p>
-            
-            <p>🌐 Your IP: <strong>{request.client.host}</strong></p>
         </body>
     </html>
     """
