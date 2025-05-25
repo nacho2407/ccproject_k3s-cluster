@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-import socket
+import os
 
 app = FastAPI()
 count = 0
-hostname = socket.gethostname()
+hostname = os.getenv("NODE_NAME", "unknown")
 
 @app.get("/", response_class = HTMLResponse)
 async def hello(request: Request):
