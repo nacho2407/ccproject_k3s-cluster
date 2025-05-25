@@ -65,8 +65,8 @@ LAN의 게이트웨이 주소로 접속하여 홈 라우터 설정 페이지를 
 이후 가상 머신에서 방화벽을 모두 열어준다.
 
 ```Bash
-$ sudo ufw disable
-$ sudo ufw status
+sudo ufw disable
+sudo ufw status
 ```
 
 ![ufw](./res/ufw.png)
@@ -79,10 +79,10 @@ $ sudo ufw status
 이제 마스터 노드로 사용할 가상 머신에서 K3s를 설치한다. K3s는 인터넷에서 단일 바이너리 파일을 받아 일부 환경 변수와 함께 설치해주면 된다.
 
 ```Bash
-$ sudo apt update
-$ sudo apt upgrade
-$ sudo apt install build-essential curl
-$ curl -sfL https://get.k3s.io | sh -s - server --node-ip <가상 머신의 사설 IP> --tls-san <가상 머신의 사설 IP> [--tls-san <추가로 사용할 DNS 주소>]
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential curl
+curl -sfL https://get.k3s.io | sh -s - server --node-ip <가상 머신의 사설 IP> --tls-san <가상 머신의 사설 IP> [--tls-san <추가로 사용할 DNS 주소>]
 ```
 
 `node-ip`를 통해 클러스터 내에서 노드를 구분할 IP 주소를 알려준다. 외부에서 마스터 노드에 접근하거나 클러스터 내 노드 간 통신 시에는 K3s가 자동으로 TLS 인증서를 생성하여 인증 작업을 수행하는데, 만약 외부 DNS 주소를 사용할 예정이면 인증 과정에서 문제가 생기지 않도록 `tls-san`을 통해 추가로 명시해준다.
@@ -90,15 +90,15 @@ $ curl -sfL https://get.k3s.io | sh -s - server --node-ip <가상 머신의 사�
 K3s의 설정 파일은 시스템 디렉토리 내에 존재하기 때문에, `kubectl`을 사용할 때마다 `su` 권한을 받아야 하는 불편이 있다. 좀 더 편하게 관리하기 위해 설정 파일을 홈 디렉토리로 옮겨온다.
 
 ```Bash
-$ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-$ sudo chown $USER:$USER ~/.kube/config
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $USER:$USER ~/.kube/config
 ```
 
 이를 K3s 환경 변수 `KUBECONFIG`를 통해 따로 설정하지 않고 바로 사용할 수 있도록 아래 명령어를 통해 `.bashrc` 파일에 추가해둔다.
 
 ```Bash
-$ echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
-$ source ~/.bashrc
+echo 'export KUBECONFIG=/etc/rancher/k3s/k3s.yaml' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 DNS 사용을 위해 K3s 마스터 설치 시 `tls-san`을 설정해 두었다면 K3s 설정 파일에서도 `kubectl` 서버 주소를 `127.0.0.1`에서 DNS 주소로 변경해 주어야 한다.
@@ -117,22 +117,22 @@ server: https://<DNS 주소>:6443
 마스터 노드의 토큰 값은 마스터 노드에서 아래 값을 통해 확인한다.
 
 ```Bash
-$ sudo cat /var/lib/rancher/k3s/server/node-token
+sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
 이후 워커 노드에서 아래와 같이 설치한다.
 
 ```Bash
-$ sudo apt update
-$ sudo apt upgrade
-$ sudo apt install build-essential curl
-$ curl -sfL https://get.k3s.io | K3S_URL=https://<마스터 노드의 사설 IP 주소>:6443 K3S_TOKEN=<마스터 노드에서 확인한 토큰 값> sh -s - --node-ip <워커 노드의 사설 IP 주소>
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential curl
+curl -sfL https://get.k3s.io | K3S_URL=https://<마스터 노드의 사설 IP 주소>:6443 K3S_TOKEN=<마스터 노드에서 확인한 토큰 값> sh -s - --node-ip <워커 노드의 사설 IP 주소>
 ```
 
 마스터 노드에서 아래와 같이 확인할 수 있으면 마스터 - 워커 연결에 성공한 것이다.
 
 ```Bash
-$ kubectl get nodes
+kubectl get nodes
 ```
 
 ![node_connection](./res/node_connection.png)
@@ -200,10 +200,10 @@ CMD ["uvicorn", "test:app", "--host", "0.0.0.0", "--port", "80"]
 Python 3.13의 slim 버전 이미지를 기반으로 `fastapi`, `uvicorn`을 pip로 설치 후 80번 포트로 실행한다. 이미지는 아래와 같이 생성하고 Docker Hub에 등록한다.
 
 ```Bash
-$ cd <Dockerfile이 있는 위치>/
-$ docker build -t <Docker Hub 아이디>/test .
-$ docker login
-$ docker push <Docker Hub 아이디>/test
+cd <Dockerfile이 있는 위치>/
+docker build -t <Docker Hub 아이디>/test .
+docker login
+docker push <Docker Hub 아이디>/test
 ```
 
 ---
@@ -280,13 +280,13 @@ spec:
 마침내 부하 분산을 테스트할 준비가 되었다. 작성한 YAML 파일을 이용해 K3s에 서비스를 배포하여 부하 분산이 정상적으로 작동하는지 테스트한다. K3s 배포는 아래 명령어를 통해 간단하게 배포할 수 있다.
 
 ```Bash
-$ kubectl apply -f ./test.yaml
+kubectl apply -f ./test.yaml
 ```
 
 이후 배포가 정상적으로 되었는지 확인하기 위해 아래 명령어를 통해 클러스터 내 파드 분포를 확인한다.
 
 ```Bash
-$ kubectl get pods -o wide
+kubectl get pods -o wide
 ```
 
 ![get_pods](./res/get_pods.png)
