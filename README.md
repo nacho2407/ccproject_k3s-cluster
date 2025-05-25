@@ -47,6 +47,8 @@ K3s에서 노드 간 통신을 위해 사용하는 포트는 다음과 같다.
 
 ![어댑터에 브리지](./res/bridged_adapter.png)
 
+---
+
 
 ### 포트 포워딩
 
@@ -68,6 +70,8 @@ $ sudo ufw status
 ```
 
 ![ufw](./res/ufw.png)
+
+---
 
 
 ### 마스터 노드 설치
@@ -102,6 +106,8 @@ DNS 사용을 위해 K3s 마스터 설치 시 `tls-san`을 설정해 두었다�
 ```YAML
 server: https://<DNS 주소>:6443
 ```
+
+---
 
 
 ### 워커 노드 설치 & 마스터 - 워커 연결
@@ -173,6 +179,8 @@ async def hello(request: Request):
 
 ```
 
+---
+
 
 ### 서버 컨테이너화
 
@@ -197,6 +205,8 @@ $ docker build -t <Docker Hub 아이디>/test .
 $ docker login
 $ docker push <Docker Hub 아이디>/test
 ```
+
+---
 
 
 ### 배포 파일 작성
@@ -261,6 +271,8 @@ spec:
 외부에서 사용자가 클러스터에 접근할 때는 `nodePort`에 정의한 포트로 접근하며, 해당 접근은 Kubernetes Service에 `port`에 정의한 포트로 연결된다. 이후 Kubernetes Service는 이 요청을 `targetPort`에 정의한 포트로 각 파드에 분배한다.
 
 현재는 각 서버가 80번 포트로 오는 요청을 처리하고 있으므로 `targetPort`를 80으로 설정한다. 외부에서 접근하기 위한 `nodePort`는 홈 라우터 포트 포워딩에서 80:30080을 설정하였기 때문에 30080으로 설정한다. LAN 외부 환경에서 접근할 때는 단순히 80번 포트로 접속하면 된다.
+
+---
 
 
 ### K3s 배포
