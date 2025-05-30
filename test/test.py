@@ -40,7 +40,7 @@ async def hello(request: Request):
 
 @app.post("/load")
 async def load(duration: int = Form(...)):
-    cpus = os.cpu_count() or 1
+    cpus = (os.cpu_count() - 1) or 1
 
     try:
         subprocess.Popen(
