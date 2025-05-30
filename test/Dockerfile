@@ -4,7 +4,7 @@ RUN apt update && apt upgrade -y && apt-get install -y gcc stress curl && apt-ge
 
 RUN pip install --no-cache-dir fastapi uvicorn
 
-COPY main.py /app/main.py
+COPY test.py /app/main.py
 
 WORKDIR /app
 
