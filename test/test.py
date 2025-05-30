@@ -38,6 +38,7 @@ async def hello(request: Request):
 
     return HTMLResponse(content=html)
 
+@app.post("/load")
 async def load(duration: int = Form(...)):
     cpus = os.cpu_count() or 1
 
