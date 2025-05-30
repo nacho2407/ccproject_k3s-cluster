@@ -2,7 +2,7 @@ FROM python:3.13-slim
 
 RUN apt update && apt upgrade -y && apt-get install -y gcc stress curl && apt-get clean
 
-RUN pip install --no-cache-dir fastapi uvicorn
+RUN pip install --no-cache-dir fastapi uvicorn python-multipart
 
 COPY test.py /app/main.py
 
