@@ -51,3 +51,5 @@ async def load(duration: int = Form(...)):
         result = f"✅ Started stress with {cpus} CPUs for {duration} seconds"
     except Exception as e:
         result = f"❌ Failed to start stress: {e}"
+
+# TODO: load 응답 형식 추가하기
