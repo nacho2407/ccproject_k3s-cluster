@@ -4,8 +4,9 @@ prometheus:
             kubernetes.io/hostname: nacho-vm
 
 alertmanager:
-    nodeSelector:
-        kubernetes.io/hostname: nacho-vm
+    alertmanagerSpec:
+        nodeSelector:
+            kubernetes.io/hostname: nacho-vm
 
 grafana:
     nodeSelector:
