@@ -93,7 +93,7 @@
 
 - 두 대의 노드만 서버용으로 사용하고 한 대의 노드는 DB만을 위한 노드로 사용할 수도 있음
 
-![architecture_example](../res/architecture_example.png)
+![architecture_example](../assets/architecture_example.png)
 
 
 ### K3s에서 작업해야 하는 부분

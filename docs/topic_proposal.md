@@ -1,4 +1,4 @@
-# 주제 제안
+# ✔ 주제 제안
 
 ## 추가로 생각해야 할 선정 기준(제안서 작성 목록 기준)
 
@@ -22,7 +22,7 @@
 
 - 예시 구조
 
-  ![course_registration](../res/course_registration.png)
+  ![course_registration](../assets/course_registration.png)
 
     - 필요 시 API Gateway(직접 구현하거나 퍼블릭 클라우드 서비스 이용)를 추가할 수 있음
 
@@ -51,14 +51,14 @@
 
     - 화면 예시
 
-      ![tetris_1](../res/tetris_1.jpg)
+      ![tetris_1](../assets/tetris_1.jpg)
 
     - 각 플레이어의 게임판 상태는 실시간으로 공유되어, 참가자들은 다른 플레이어의 진행 상황을 동시에 시각적으로 확인할 수 있음
 
 
 - 예시 구조
 
-  ![tetris_2](../res/tetris_2.png)
+  ![tetris_2](../assets/tetris_2.png)
 
     - Amazon S3: 웹 게임 클라이언트 파일을 저장하면서, 사용자에게 페이지 호스팅
 
@@ -79,7 +79,7 @@
 
 - 예시 구조
 
-  ![llm](../res/llm.png)
+  ![llm](../assets/llm.png)
 
     - 하나의 컴퓨터가 아닌, 여러 컴퓨터(노드)에서 각각 다른 LLM 모델을 구동하면서, 이를 쿠버네티스를 통해 오케스트레이션
 
@@ -96,6 +96,6 @@
 
 - 예시 구조
 
-  ![log_replay](../res/log_replay.png)
+  ![log_replay](../assets/log_replay.png)
 
 - 아이디어는 좋지만 제한된 프로젝트 시간 내에 구현 현실성이 낮음

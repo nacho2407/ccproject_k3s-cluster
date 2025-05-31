@@ -1,4 +1,4 @@
-# 제안서
+# ✔ 프로젝트 제안서
 
 ## 프로젝트 주제
 
@@ -16,7 +16,7 @@ HPA 설정을 통해 부하에 따라 Pod 수가 자동으로 증가하고, 이 
 
 ## 제안하는 SW/시스템의 구성도
 
-![system_architecture](../res/system_architecture.png)
+![system_architecture](../assets/system_architecture.png)
 
 - 사용자 웹 페이지
 
