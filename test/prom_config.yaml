@@ -11,6 +11,8 @@ alertmanager:
             kubernetes.io/hostname: nacho-vm
 
 grafana:
+    adminUser: admin
+    adminPassword: admin
     nodeSelector:
         kubernetes.io/hostname: nacho-vm
     env:
