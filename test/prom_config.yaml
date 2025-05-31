@@ -1,5 +1,7 @@
 prometheus:
     prometheusSpec:
+        scrapeInterval: 10s
+        evaluationInterval: 10s
         nodeSelector:
             kubernetes.io/hostname: nacho-vm
 
