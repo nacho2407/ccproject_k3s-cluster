@@ -30,7 +30,7 @@ K3s에서 노드 간 통신을 위해 사용하는 포트는 다음과 같다.
 
 조사 결과 애초에 K3s 환경을 Windows 상에 WSL로 구성하는 경우가 없기도 하고, 이 경우에는 방화벽 설정 등 손 대야할 부분이 너무 많은 것 같아서 그냥 VirtualBox로 Ubuntu 가상 머신을 올려서 방화벽 다 끄고 구성하기로 한다. Windows 방화벽에 막히는 것을 막기 위해 VirtualBox 가상 머신은 홈 라우터에 바로 붙어 사설 IP 주소를 할당받을 수 있는 '어댑터에 브리지' 모드로 사용하도록 한다.
 
-![어댑터에 브리지](./res/bridged_adapter.png)
+![어댑터에 브리지](./assets/bridged_adapter.png)
 
 ---
 
@@ -38,7 +38,7 @@ K3s에서 노드 간 통신을 위해 사용하는 포트는 다음과 같다.
 
 기존에 WSL로 구현할 때는 홈 라우터 포트 포워딩, Windows 방화벽 인바운드 규칙 설정, Windwos - WSL 네트워크 중계를 위한 `netsh` 설정, WSL 내 방화벽 설정 등등 포트 관련 수많은 설정이 필요했으나, 그냥 가상 머신 상에 방화벽 다 끄고 K3s 노드를 설정하는 경우 단순히 홈 라우터 포트 포워딩만 구성해주면 된다.
 
-![홈 라우터 포트 포워딩](./res/port_forwarding.png)
+![홈 라우터 포트 포워딩](./assets/port_forwarding.png)
 
 LAN의 게이트웨이 주소로 접속하여 홈 라우터 설정 페이지를 연 다음, 포트 포워딩 설정 화면에서 위 사진과 같이 포트를 터준다. 사실 6443 / TCP 포트는 외부에서 `kubectl`에 접근할 일이 없으면 열지 않아도 되고, 8472 / UDP 포트도 클러스터 내에서만 필요한 포트라 홈 라우터 포트 포워딩까지는 필요 없지만 혹시 몰라서 그냥 열어 두었다. WSL로 테스트할 때처럼 지옥을 또 경험하고 싶지는 않다.
 
@@ -53,7 +53,7 @@ sudo ufw disable
 sudo ufw status
 ```
 
-![ufw](./res/ufw.png)
+![ufw](./assets/ufw.png)
 
 ---
 
@@ -117,7 +117,7 @@ curl -sfL https://get.k3s.io | K3S_URL=https://<마스터 노드의 사설 IP �
 kubectl get nodes
 ```
 
-![node_connection](./res/node_connection.png)
+![node_connection](./assets/node_connection.png)
 
 
 ## 부하 분산
@@ -268,13 +268,13 @@ kubectl apply -f ./test.yaml
 kubectl get pods -o wide
 ```
 
-![get_pods](./res/get_pods.png)
+![get_pods](./assets/get_pods.png)
 
 웹 브라우저에서 실제 접속이 잘 되는지 확인한다.
 
-![test_1](./res/test_1.png)
+![test_1](./assets/test_1.png)
 
-![test_2](./res/test_2.png)
+![test_2](./assets/test_2.png)
 
 웹 브라우저가 새로고침될 때마다 라운드로빈 방식으로 각 Pod의 응답을 받을 수 있다.
 
