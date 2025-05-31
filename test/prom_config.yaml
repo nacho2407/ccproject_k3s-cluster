@@ -1,0 +1,22 @@
+prometheus:
+    prometheusSpec:
+        nodeSelector:
+            kubernetes.io/hostname: nacho-vm
+
+alertmanager:
+    nodeSelector:
+        kubernetes.io/hostname: nacho-vm
+
+grafana:
+    nodeSelector:
+        kubernetes.io/hostname: nacho-vm
+    env:
+        GF_SECURITY_ALLOW_EMBEDDING: true
+        GF_SECURITY_COOKIE_SAMESITE: lax
+        GF_SERVER_DOMAIN: nacho2407.duckdns.org
+        GF_SERVER_ROOT_URL: http://nacho2407.duckdns.org:30090/
+        GF_SERVER_SERVE_FROM_SUB_PATH: false
+
+global:
+    nodeSelector:
+        kubernetes.io/hostname: nacho-vm
