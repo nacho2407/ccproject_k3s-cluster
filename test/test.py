@@ -26,7 +26,7 @@ async def hello():
                 
                 <p>📊 Visitor number: <strong>{count}</strong></p>
 
-                <form onsubmit="sendLoadRequest(event)">
+                <form action="/load" method="post">
                     <label>⏱️ CPU Load</label>
 
                     <input type="number" id="duration" name="duration" min="1" max="300" value="60">
