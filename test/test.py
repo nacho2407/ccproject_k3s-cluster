@@ -61,10 +61,18 @@ async def load(duration: int = Form(...)):
 
     html = f"""
         <html>
+            <head>
+                <title>CPU Load</title>
+            </head>
+
             <body style="font-family:sans-serif; text-align:center; padding-top:3em">
                 <p>{result}</p>
 
                 <p><a href="/">Back</a></p>
+
+                <h2 stype="text-align: center">📈 CPU Usage</h2>
+
+                <iframe src="http://nacho2407.duckdns.org:30441/d-solo/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?orgId=1&from=1748675402427&to=1748675702427&timezone=browser&var-datasource=default&var-cluster=&var-namespace=default&var-type=$__all&var-workload=test-hpa&refresh=auto&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
             </body>
         </html>
         """
