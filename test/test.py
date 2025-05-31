@@ -72,7 +72,7 @@ async def load(duration: int = Form(...)):
 
                 <h2 stype="text-align: center">📈 CPU Usage</h2>
 
-                <iframe src="http://nacho2407.duckdns.org:30090/d-solo/a164a7f0339f99e89cea5cb47e9be617/kubernetes-compute-resources-workload?orgId=1&timezone=browser&var-datasource=default&var-cluster=&var-namespace=default&var-type=$__all&var-workload=test-hpa&refresh=10s&theme=light&panelId=1&__feature.dashboardSceneSolo" width="450" height="200" frameborder="0"></iframe>
+                <iframe src="http://nacho2407.duckdns.org:30090/d-solo/a164a7f0339f99e89cea5cb47e9be618/k3s-course-reg-test?orgId=1&from=1748688075564&to=1748688375564&timezone=browser&var-datasource=default&var-cluster=&var-namespace=default&var-type=$__all&var-workload=test-hpa&refresh=10s&theme=light&panelId=1&__feature.dashboardSceneSolo" width="1280" height="720" frameborder="0"></iframe>
             </body>
         </html>
         """
