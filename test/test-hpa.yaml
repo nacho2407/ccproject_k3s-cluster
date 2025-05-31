@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: test-hpa
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: test-hpa
+    template:
+        metadata:
+            labels:
+                app: test-hpa
+        spec:
+            containers:
+                - name: fastapi
+                  image: nacho2407/test
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: NODE_NAME
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: spec.nodeName
+                  resources:
+                      requests:
+                          cpu: "1000m"
+                      limits:
+                          cpu: "2000m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: test-hpa
+spec:
+    type: NodePort
+    selector:
+        app: test-hpa
+    ports:
+        - port: 80
+          targetPort: 80
+          nodePort: 30080
+
+---
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+    name: test-hpa
+spec:
+    scaleTargetRef:
+        apiVersion: apps/v1
+        kind: Deployment
+        name: test
+    minReplicas: 2
+    maxReplicas: 4
+    metrics:
+        - type: Resource
+          resource:
+          name: cpu
+          target:
+              type: Utilization
+              averageUtilization: 80
+    behavior:
+        scaleUp:
+            stabilizationWindowSeconds: 0
+            policies:
+                - type: Pods
+                  value: 1
+                  periodSeconds: 60
+        scaleDown:
+            stabilizationWindowSeconds: 180
+            policies:
+                - type: Pods
+                  value: 1
+                  periodSeconds: 60

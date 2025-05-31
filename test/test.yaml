@@ -24,6 +24,7 @@ spec:
                                 fieldPath: spec.nodeName
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
