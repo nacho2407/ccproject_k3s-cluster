@@ -1,11 +1,13 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 import os
+import socket
 import subprocess
 
 app = FastAPI()
 count = 0
-hostname = os.getenv("NODE_NAME", "unknown")
+node_name = os.getenv("NODE_NAME", "unknown")
+pod_name = socket.gethostname()
 
 
 @app.get("/", response_class = HTMLResponse)
@@ -16,18 +18,20 @@ async def hello():
     html = f"""
         <html>
             <head>
-                <title>Hello from {hostname}</title>
+                <title>Hello from {node_name}</title>
             </head>
             
             <body style="font-family:sans-serif; text-align:center; padding-top:3em">
                 <h1>👋 Hello, world!</h1>
 
-                <p>🐳 Served from node: <strong>{hostname}</strong></p>
+                <p>🖥 Server node: <strong>{node_name}</strong></p>
+
+                <p>🐳 Served from pod: <strong>{pod_name}</strong></p>
                 
                 <p>📊 Visitor number: <strong>{count}</strong></p>
 
                 <form action="/load" method="post">
-                    <label>⏱️ CPU Load</label>
+                    <label>💣 CPU Load</label>
 
                     <input type="number" id="duration" name="duration" min="1" max="300" value="60">
 
