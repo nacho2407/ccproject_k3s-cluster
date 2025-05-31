@@ -53,7 +53,7 @@ spec:
     scaleTargetRef:
         apiVersion: apps/v1
         kind: Deployment
-        name: test
+        name: test-hpa
     minReplicas: 2
     maxReplicas: 4
     metrics:
