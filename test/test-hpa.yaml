@@ -59,10 +59,10 @@ spec:
     metrics:
         - type: Resource
           resource:
-          name: cpu
-          target:
-              type: Utilization
-              averageUtilization: 80
+              name: cpu
+              target:
+                  type: Utilization
+                  averageUtilization: 80
     behavior:
         scaleUp:
             stabilizationWindowSeconds: 0
