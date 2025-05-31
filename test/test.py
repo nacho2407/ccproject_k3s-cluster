@@ -7,49 +7,62 @@ app = FastAPI()
 count = 0
 hostname = os.getenv("NODE_NAME", "unknown")
 
+
 @app.get("/", response_class = HTMLResponse)
-async def hello(request: Request):
+async def hello():
     global count
     count += 1
 
     html = f"""
-    <html>
-        <head>
-            <title>Hello from {hostname}</title>
-        </head>
-        
-        <body style="font-family: sans-serif; text-align: center; padding-top: 3em">
-            <h1>👋 Hello, world!</h1>
-
-            <p>🐳 Served from node: <strong>{hostname}</strong></p>
+        <html>
+            <head>
+                <title>Hello from {hostname}</title>
+            </head>
             
-            <p>📊 Visitor number: <strong>{count}</strong></p>
+            <body style="font-family:sans-serif; text-align:center; padding-top:3em">
+                <h1>👋 Hello, world!</h1>
 
-            <form action="/load" method="post">
-                <label>⏱️ 몇 초간 CPU 로드를 줄까요? </label>
-
-                <input type="number" name="duration" min="1" max="300" value="180">
+                <p>🐳 Served from node: <strong>{hostname}</strong></p>
                 
-                <input type="submit" value="Load 시작">
-            </form>
-        </body>
-    </html>
-    """
+                <p>📊 Visitor number: <strong>{count}</strong></p>
 
-    return HTMLResponse(content=html)
+                <form onsubmit="sendLoadRequest(event)">
+                    <label>⏱️ CPU Load</label>
 
-@app.post("/load")
+                    <input type="number" id="duration" name="duration" min="1" max="300" value="60">
+
+                    <input type="submit" value="Commit">
+                </form>
+            </body>
+        </html>
+        """
+
+    return HTMLResponse(content = html)
+
+
+@app.post("/load", response_class = HTMLResponse)
 async def load(duration: int = Form(...)):
-    cpus = (os.cpu_count() - 1) or 1
+    cpus = os.cpu_count() or 1
 
     try:
         subprocess.Popen(
             ["stress", "--cpu", str(cpus), "--timeout", str(duration)],
-            stdout = subprocess.DEVNULL,
-            stderr = subprocess.DEVNULL
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
         )
+
         result = f"✅ Started stress with {cpus} CPUs for {duration} seconds"
     except Exception as e:
         result = f"❌ Failed to start stress: {e}"
 
-# TODO: load 응답 형식 추가하기
+    html = f"""
+        <html>
+            <body style="font-family:sans-serif; text-align:center; padding-top:3em">
+                <p>{result}</p>
+
+                <p><a href="/">Back</a></p>
+            </body>
+        </html>
+        """
+
+    return HTMLResponse(content = html)
